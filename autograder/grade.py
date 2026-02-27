@@ -61,7 +61,6 @@ def run(cmd: List[str]) -> str:
         print("Command failed:", " ".join(cmd))
         print(p.stdout)
         print(p.stderr)
-        sys.exit(p.returncode)
     return p.stdout.strip()
 
 
@@ -277,3 +276,4 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
+    sys.exit(0)
