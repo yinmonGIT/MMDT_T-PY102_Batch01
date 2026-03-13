@@ -9,6 +9,7 @@ Lab format:
 - Node classes are defined separately from LinkedList wrappers.
 
 Student instructions:
+
 - Do NOT change required function names/signatures.
 - You MAY add helper functions/methods.
 - Use pointer manipulation (don’t solve by converting the whole list to an int or Python list).
@@ -17,7 +18,7 @@ Student instructions:
 class Node:
     def __init__(self, val=0, next=None):
         self.val = val
-        self.next = next 
+        self.next = next
 
 
 class SinglyLinkedList:
@@ -58,18 +59,17 @@ def reverseList(head):
     Reverse a singly linked list and return the new head.
     Time: O(n), Space: O(1)
     """
-    # TODO: Implement
     prev = None
     curr = head
 
-    while curr:
+    while curr is not None:
         next_node = curr.next
-        curr.next = prev        
-        prev = curr             
+        curr.next = prev
+        prev = curr
         curr = next_node
 
     return prev
-    raise NotImplementedError
+
 
 def doubleIt(head):
     """
@@ -86,46 +86,36 @@ def doubleIt(head):
     - Use linked-list operations/pointer logic.
     - Avoid converting the entire list into an integer/string for the core solution.
     """
-    head = reverseList(head)
 
-    curr = head
+    # TODO: Implement
+    # raise NotImplementedError
+
+    head = reverseList (head)
+
+    crt = head
     carry = 0
-
-    while curr:
-        total = curr.val * 2 + carry
-        curr.val = total % 10
+    while crt :
+        total = crt.val * 2 + carry
+        crt.val = total % 10
         carry = total // 10
 
-        if curr.next is None:
-            if carry > 0:
-                curr.next = Node(carry)
-                carry = 0
-            break
+        if crt.next is None and carry > 0:
+            crt.next = Node(carry)
+            carry = 0 
+            break 
 
-        curr = curr.next
-
-
-    head = reverseList(head)
-
-    return head
-    raise NotImplementedError
-
-
+        crt = crt.next
+    return reverseList(head)
 
 if __name__ == "__main__":
+    ll = SinglyLinkedList.from_list([1, 2, 3, 4])
+    ll.head = reverseList(ll.head)
+    print(ll.to_list())
 
-    lst = SinglyLinkedList.from_list([1, 2, 3, 4, 5])
-    new_head = reverseList(lst.head)
-    reversed_list = SinglyLinkedList(new_head)
+    ll2 = SinglyLinkedList.from_list([1, 8, 9])
+    ll2.head = doubleIt(ll2.head)
+    print(ll2.to_list())
 
-    print("Reverse Test:")
-    print(reversed_list.to_list())
-
-    lst2 = SinglyLinkedList.from_list([1, 8, 9])
-    new_head2 = doubleIt(lst2.head)
-    doubled_list = SinglyLinkedList(new_head2)
-
-    print("Double Test:")
-    print(doubled_list.to_list())
-
-
+    ll3 = SinglyLinkedList.from_list([9, 9, 9])
+    ll3.head = doubleIt(ll3.head)
+    print(ll3.to_list())
