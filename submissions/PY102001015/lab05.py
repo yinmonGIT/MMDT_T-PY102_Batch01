@@ -106,10 +106,8 @@ def build_class_bst():
     nums = [init_id + k for k in range(num_stus)]
     #TODO
     root = sorted_array_to_bst(nums)
-    # Insert additional out-of-order IDs if any (example: 1007, 1008)
-    out_of_order_ID = [1010, 1018]
-    for id in out_of_order_ID:
-        insert_bst(root, id)
+    out_of_order_ID = 1018
+    insert_bst(root, out_of_order_ID)
     print_all_nodes(root)
     print(f"Max possible iterations to search: {height(root)}")
     raise NotImplementedError("Implement Q3 here.")
