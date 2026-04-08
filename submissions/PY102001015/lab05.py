@@ -71,7 +71,9 @@ def insert_bst(root: Optional[TreeNode], value: int):
     #TODO
     if root is None:
         return TreeNode(value)
-    if value < root.value:
+    if root.value == value:
+        return root
+    elif value < root.value:
         root.left = insert_bst(root.left, value)
     elif value > root.value:
         root.right = insert_bst(root.right, value)
@@ -110,4 +112,5 @@ def build_class_bst():
     insert_bst(root, out_of_order_ID)
     print_all_nodes(root)
     print(f"Max possible iterations to search: {height(root)}")
+    return root
     raise NotImplementedError("Implement Q3 here.")
