@@ -45,27 +45,21 @@ def height(root):
 
 
 def _build(nums: List[int], left: int, right: int):
+    if left > right:
+        return None
 
     mid = (left + right) // 2
 
     node = TreeNode(nums[mid])
 
-    left_part = None
-    if left <= mid - 1:
-        left_part = _build(nums, left, mid - 1)
-    node.left = left_part
-
-    right_part = None
-    if mid + 1 <= right:
-        right_part = _build(nums, mid + 1, right)
-    node.right = right_part
+    node.left = _build(nums, left, mid - 1)
+    node.right = _build(nums, mid + 1, right)
 
     return node
 
 
 def sorted_array_to_bst(nums: List[int]) -> Optional[TreeNode]:
     new_tree_root = _build(nums, 0, len(nums) - 1)
-    print(new_tree_root)
     return new_tree_root
 
 
@@ -85,26 +79,12 @@ def sorted_array_to_bst(nums: List[int]) -> Optional[TreeNode]:
 
 
 def insert_bst(root: Optional[TreeNode], value: int):
-    # TODO
     if root is None:
-        new_node = TreeNode(value)
-        return new_node
-
+        return TreeNode(value)
     if value < root.value:
-        if root.left is None:
-            root.left = TreeNode(value)
-        else:
-            left_child = insert_bst(root.left, value)
-            root.left = left_child
-    elif value > root.value:
-        if root.right is None:
-            root.right = TreeNode(value)
-        else:
-            right_child = insert_bst(root.right, value)
-            root.right = right_child
-    else:
-        pass
-    print(root)
+        root.left = insert_bst(root.left, value)
+    if value > root.value:
+        root.right = insert_bst(root.right, value)
     return root
 
 
@@ -137,27 +117,11 @@ def build_class_bst():
     nums = [init_id + k for k in range(num_stus)]
 
     root = sorted_array_to_bst(nums)
+    additional_ids = [1007, 1008]
 
-    extra_ids = [1008, 1000, 1010]  # example extra IDs
-    for eid in extra_ids:
-        root = insert_bst(root, eid)
+    for id in additional_ids:
+        root = insert_bst(root, id)
 
-    print("All nodes in BST:")
     print_all_nodes(root)
 
-    max_iterations = height(root)
-    print("Max possible iterations to search a student ID:", max_iterations)
-
-    return root
-
-
-# my own tests
-def main():
-    root = sorted_array_to_bst([1, 2, 3, 4, 5, 6, 7])
-    insert_bst(root, 30)
-    build_class_bst()
-
-
-if __name__ == "__main__":
-    # main()
-    pass
+    print("Max possible iterations to search a student id:", height(root))
